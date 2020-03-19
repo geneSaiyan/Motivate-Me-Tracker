@@ -1,0 +1,25 @@
+header{
+    background-color: #949494;
+    height: 100px;
+    
+    color: white;
+}
+
+header h1{
+    padding-top: 25px;
+    font-family: 'Julius Sans One', sans-serif;
+}
+
+#form-div{
+    margin: auto;
+    width: 500px;
+    border: 1px solid gray;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: black;
+    color: white;
+}
+
+#content-holder{
+    margin-top: 3%;
+}
