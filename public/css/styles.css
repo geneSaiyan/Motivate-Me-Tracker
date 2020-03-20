@@ -55,6 +55,32 @@ header h1{
     padding-top: 75px;
 }
 
+#divLoadWorkouts{
+    margin: auto;
+    background-color: green;
+    border-radius: 10px;
+    color: white;
+    width: 600px;
+    height: auto;
+    min-height: 500px;
+    text-align: center;
+}
+
+#divloadWorkouts h3{
+    padding-top: 10px;
+}
+
+.whiteLink{
+    color: white;
+    text-decoration: none;
+}
+
+#divLoadWorkouts button:hover{
+    color: white;
+    text-decoration: none;
+    font-size: large;
+}
+
 #addAlert{
     display: none;
     width: 500px;

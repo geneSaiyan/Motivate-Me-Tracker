@@ -17,25 +17,3 @@ $("#btnAddWorkout").click(function(){
       $("#addAlert").fadeOut(4000);
     console.log(workoutData)
 })
-
-// Function used to load previous workout data
-function loadWorkouts() {
-  fetch("/workouts")
-        .then(function(response) {
-            if (response.status !== 200) {
-                console.log("Looks like there was a problem. Status Code: " + response.status);
-                return;
-            }
-            response.json().then(function(data) {
-              for(i = 0; i < data.length; i++){
-                console.log(data[i].workout_name);
-              }
-                
-            });
-        })
-        .catch(function(err) {
-            console.log("Fetch Error :-S", err);
-        });
-}
-
-loadWorkouts();
