@@ -17,13 +17,14 @@ app.use(express.static("public"));
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fitnessTrackerDB", { useNewUrlParser: true });
 
-// db.User.create({ name: "Ernest Hemingway" })
-//   .then(dbUser => {
-//     console.log(dbUser);
-//   })
-//   .catch(({ message }) => {
-//     console.log(message);
-//   });
+// Testing exercise table
+db.Exercise.create({ exercise_name: "Bench Press", num_of_reps: "4" })
+  .then(dbExercise => {
+    console.log(dbExercise);
+  })
+  .catch(({ message }) => {
+    console.log(message);
+  });
 
 // app.get("/notes", (req, res) => {
 //   db.Note.find({})
