@@ -23,3 +23,40 @@ header h1{
 #content-holder{
     margin-top: 3%;
 }
+
+#divCreateOrLoad{
+    width: 600px;
+    margin: auto;
+}
+#divCreateWorkout{
+ background-color: black;
+ color: white;
+ height: 200px;
+ border-radius: 10px;
+ text-align: center;
+ cursor: pointer;
+}
+
+#divCreateWorkout h4{
+    padding-top: 75px;
+}
+
+#divLoadWorkout{
+    background-color: green;
+    color: white;
+    height: 200px;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+
+}
+
+#divLoadWorkout h4{
+    padding-top: 75px;
+}
+
+#addAlert{
+    display: none;
+    width: 500px;
+    margin: auto;
+}
