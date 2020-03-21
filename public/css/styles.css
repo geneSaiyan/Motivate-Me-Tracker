@@ -24,6 +24,12 @@ header h1{
     margin-top: 3%;
 }
 
+
+#navbar{
+    width: 500px;
+    margin: auto;
+}
+
 #divCreateOrLoad{
     width: 600px;
     margin: auto;
@@ -63,12 +69,9 @@ header h1{
     width: 600px;
     height: auto;
     min-height: 500px;
-    text-align: center;
+
 }
 
-#divloadWorkouts h3{
-    padding-top: 10px;
-}
 
 .whiteLink{
     color: white;

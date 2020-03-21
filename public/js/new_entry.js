@@ -15,5 +15,5 @@ $("#btnAddWorkout").click(function(){
 
       $("#addAlert").fadeIn();
       $("#addAlert").fadeOut(4000);
-    console.log(workoutData)
+    console.log(workoutData);
 })
