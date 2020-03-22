@@ -38,38 +38,25 @@ app.get("/workouts", (req, res) => {
   });
 });
 
-// Testing exercise table
-// db.Exercise.create({ exercise_name: "Bench Press", num_of_reps: "4" })
-//   .then(dbExercise => {
-//     console.log(dbExercise);
-//   })
-//   .catch(({ message }) => {
-//     console.log(message);
-//   });
-
-
-// app.get("/user", (req, res) => {
-//   db.User.find({})
-//     .then(dbUser => {
-//       res.json(dbUser);
-//     })
-//     .catch(err => {
-//       res.json(err);
-//     });
-// });
-
-
-
-// app.get("/populateduser", (req, res) => {
-//   db.User.find({})
-//     .populate("notes")
-//     .then(dbUser => {
-//       res.json(dbUser);
-//     })
-//     .catch(err => {
-//       res.json(err);
-//     });
-// });
+app.post("/addExercise", async (req, res) => {
+  let exerciseInfo = {
+    exercise_name: req.body.exercise_name,
+    num_of_reps: req.body.num_of_reps
+  }
+  const newExercise = new db.Exercise(exerciseInfo)
+  try {
+    let addExercise = await db.Exercise.create(newExercise)
+    try {
+      var dbRoutine = await db.Workout.findOneAndUpdate({ _id: req.body.workoutId }, { $push: { exercises: addExercise._id } }, { new: true })
+     
+      res.status(200).send(dbRoutine);
+    } catch (err) {
+      res.status(200).send(err);
+    }
+  } catch (err) {
+    res.status(200).send(err);
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);

@@ -14,7 +14,8 @@ function loadWorkouts() {
 
           // Creating a variable to use the workout name as unique IDs
           var workoutName = data[i].workout_name;
-          const combinedWorkoutName = workoutName.split(/\s/).join('');
+          var combinedWorkoutName = workoutName.split(/\s/).join('');
+          var workoutID = data[i]._id;
 
           var linkButton = $(`<div style="text-align:center"><button class="btn btn-link whiteLink" style="text-align:center" data-toggle="modal" data-target="#${combinedWorkoutName}">${data[i].workout_name}</button></div>`);
           var modal = $(`
@@ -29,18 +30,18 @@ function loadWorkouts() {
                   </button>
                 </div>
                 <div class="modal-body">
-                <form action="/add" method="post">
+              
                 <h5 style="color:black">Add new exercise</h5>
                 <div class="form-group>
                     <label for="exercise_name" style="color:black">Name of Exercise:</label>
-                    <input class="form-control" type="text" name="exercise_name" value="" placeholder="Exercise">
+                    <input class="form-control" type="text" id="exercise_name${workoutID}" name="exercise_name" placeholder="Exercise">
                 </div>
                 <div class="form-group">
                     <label for="num_of_reps" style="color:black">Number of Reps:</label>
-                    <input class="form-control" type="number" name="num_of_reps" value="" placeholder="# of Reps">
+                    <input class="form-control" type="number" id="num_of_reps${workoutID}" name="num_of_reps" placeholder="# of Reps">
                 </div>
-                <button class="btn btn-primary" id="addExercise">Add to Exercise</button>
-            </form>
+                <button class="btn btn-primary btnAddExercise" id="addExercise" data-id='${workoutID}'>Add to Exercise</button>
+
             <hr>
             <h5 style="color:black">Exercises performed</h5>
                 </div>
@@ -51,15 +52,46 @@ function loadWorkouts() {
           `)
 
           divLoadWorkouts.append(linkButton, modal);
-          // linkButton.append(modal);
-          //noteListItems.push($li);
         }
+        // Button click to add exercise to workout routine
+        $(".btnAddExercise").click(function () {
+          // event.preventDefault();
 
+          var workoutId = $(this).data("id");
+          var exercise_name = $("#exercise_name" + workoutId).val();
+          var num_of_reps = $("#num_of_reps" + workoutId).val();
+          var exerciseObject = { workoutId: workoutId, exercise_name: exercise_name, num_of_reps: num_of_reps };
+
+          console.log(exerciseObject);
+
+          $.ajax({
+            url: "/addExercise",
+            data: exerciseObject,
+            method: "POST",
+            success: () => {
+              console.log('SUCCESS!')
+
+            },
+            error: err => {
+              console.log(err);
+            }
+          });
+        })
       });
+
+
     })
     .catch(function (err) {
       console.log("Fetch Error :-S", err);
     });
+
+  // $("#btnAddExercise").click(function(){
+
+  //  console.log('love')
+
+  // })
 }
 
 loadWorkouts();
+
+
