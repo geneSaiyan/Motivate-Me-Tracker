@@ -17,6 +17,7 @@ app.use(express.static("public"));
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fitnessTrackerDB", { useNewUrlParser: true });
 
+// api call to create a new workout
 app.post("/submitWorkout", ({ body }, res) => {
   db.Workout.create(body)
     .then(({ _id }) => db.Exercise.findOneAndUpdate({}, { $push: { workout_name: _id } }, { new: true }))
@@ -28,16 +29,20 @@ app.post("/submitWorkout", ({ body }, res) => {
     });
 });
 
+// api call to render workouts 
 app.get("/workouts", (req, res) => {
-  db.Workout.find({}, (error, data) => {
-    if (error) {
-      res.send(error);
-    } else {
-      res.json(data);
-    }
-  });
+  db.Workout.find({})
+    .populate("exercises")
+    .then(dbWorkout => {
+      res.json(dbWorkout);
+      console.log(dbWorkout);
+    })
+    .catch(err => {
+      res.json(err);
+    });
 });
 
+// api call to create add exercises to a workout
 app.post("/addExercise", async (req, res) => {
   let exerciseInfo = {
     exercise_name: req.body.exercise_name,
@@ -57,6 +62,19 @@ app.post("/addExercise", async (req, res) => {
     res.status(200).send(err);
   }
 });
+
+// GET brings back all exercises from the workout
+app.get("/exercises", (req, res) => {
+  db.Workout.find({})
+    .populate("exercises")
+    .then(dbWorkout => {
+      res.json(dbWorkout);
+    })
+    .catch(err => {
+      res.json(err);
+    });
+});
+
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
