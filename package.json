@@ -1,0 +1,26 @@
+{
+  "name": "motivate-me-tracker",
+  "version": "1.0.0",
+  "description": "Fitness Tracker",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.5",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geneSaiyan/Motivate-Me-Tracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/geneSaiyan/Motivate-Me-Tracker/issues"
+  },
+  "homepage": "https://github.com/geneSaiyan/Motivate-Me-Tracker#readme"
+}
