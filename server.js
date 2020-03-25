@@ -45,36 +45,37 @@ app.get("/workouts", (req, res) => {
 // api call to create add exercises to a workout
 app.post("/addExercise", async (req, res) => {
   let exerciseInfo = {
-    exercise_name: req.body.exercise_name,
-    num_of_reps: req.body.num_of_reps
+      exercise_name: req.body.exercise_name,
+      num_of_reps: req.body.num_of_reps
   }
   const newExercise = new db.Exercise(exerciseInfo)
   try {
-    let addExercise = await db.Exercise.create(newExercise)
-    try {
-      var dbRoutine = await db.Workout.findOneAndUpdate({ _id: req.body.workoutId }, { $push: { exercises: addExercise._id } }, { new: true })
-     
-      res.status(200).send(dbRoutine);
-    } catch (err) {
-      res.status(200).send(err);
-    }
+      let addExercise = await db.Exercise.create(newExercise)
+      try {
+          let dbRoutine = await db.Workout.findOneAndUpdate({_id: req.body.workoutId }, { $push: { exercises: addExercise._id } }, { new: true })
+          res.status(200).send(dbRoutine);
+      } catch (err) {
+          res.status(200).send(err);
+      }
   } catch (err) {
-    res.status(200).send(err);
+      res.status(200).send(err);
   }
 });
 
-// GET brings back all exercises from the workout
-app.get("/exercises", (req, res) => {
-  db.Workout.find({})
+// GET brings back all exercises from the specific workout based on workout id
+app.get("/exercises/:id", (req, res) => {
+  db.Workout.find({
+    _id: req.params.id
+  })
     .populate("exercises")
     .then(dbWorkout => {
       res.json(dbWorkout);
+      console.log(dbWorkout);
     })
     .catch(err => {
       res.json(err);
     });
 });
-
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}!`);
