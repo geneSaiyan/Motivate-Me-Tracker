@@ -15,7 +15,12 @@ app.use(express.json());
 
 app.use(express.static("public"));
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fitnessTrackerDB", { useNewUrlParser: true });
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://user:password1@ds263448.mlab.com:63448/heroku_jmht3kgp";
+
+mongoose.connect(MONGODB_URI, {
+    useCreateIndex: true,
+    useNewUrlParser: true
+});
 
 // api call to create a new workout
 app.post("/submitWorkout", ({ body }, res) => {
