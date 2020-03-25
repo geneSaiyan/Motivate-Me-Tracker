@@ -16,7 +16,16 @@ function renderExercises(workout_id) {
       method: "GET",
       success: result => {
           for (exercise of result[0].exercises) {
-              $("#divExerciseList").append(`<li class="col-6">${exercise.exercise_name} (Reps: ${exercise.num_of_reps})</li>`)
+              $("#divExerciseList").append(`
+              <div class="col-3" style=" margin-top: 1%;">
+              <div class="card" style="background-color: #B4EEB4;">
+                  <div class="card-body">
+                    <h6 class="card-title text-center">${exercise.exercise_name}</h6>
+                    <p class="card-text text-center">Reps: ${exercise.num_of_reps}</p>
+                  </div>
+                </div>
+          </div>
+              `)
           }
       }
   })
@@ -53,7 +62,7 @@ function renderWorkouts(data) {
   $(".workoutBtn").click(event => {
       let workoutId = $(event.currentTarget).val();
       $("#divLoadExercises").html(`
-      <ul id="divExerciseList" class="row"></ul>
+      <div id="divExerciseList" class="row"></div>
       `)
       renderExerciseForm(event.currentTarget)
       renderExercises(workoutId)  
